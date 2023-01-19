@@ -1,0 +1,18 @@
+
+.data,
+.form{
+	margin: 20px;
+}
+
+.form input, .form select{
+	margin-right:10px;
+}
+.data table tbody td{
+	min-width: 200px;
+	border-left: black solid 2px;
+	padding:10px;
+}
+
+.data table tbody tr{
+	outline: black solid 2px;
+}
