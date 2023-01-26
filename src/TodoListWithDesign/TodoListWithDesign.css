@@ -1,0 +1,15 @@
+.mainDiv{
+	padding:10px;
+}
+
+.alignRight{
+	text-align:right;
+}
+
+.select{
+  width:100%;
+}
+
+.flexItems{
+ display:flex;
+}
