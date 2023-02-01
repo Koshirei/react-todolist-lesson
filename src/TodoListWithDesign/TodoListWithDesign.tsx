@@ -1,109 +1,119 @@
-import { Input, Button, Row, Col, Select, List} from 'antd';
-import React, {useState} from 'react';
-import {CloseOutlined} from '@ant-design/icons';
+import { Input, Button, Row, Col, Select, List } from 'antd';
+import React, { useState } from 'react';
+import { CloseOutlined } from '@ant-design/icons';
 import './TodoListWithDesign.css';
 
 const TodoListWithDesign = () => {
 
-    const [newColumnName, setNewColumnName] = useState<string>("");
-    const [newItemName, setNewItemName] = useState<string>("");
-    const [categoryList, setCategoryList] = useState<Category[]>([]);  
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
-    const [itemList, setItemList] = useState<Item[]>([]);
+	const [newColumnName, setNewColumnName] = useState<string>("");
+	const [newItemName, setNewItemName] = useState<string>("");
+	const [categoryList, setCategoryList] = useState<Category[]>([]);
+	const [selectedCategory, setSelectedCategory] = useState<string>("");
+	const [itemList, setItemList] = useState<Item[]>([]);
 
-    interface Category{
-	id: string;
-	name:string;
-    }
-    interface Item{
-	id: string;
-	name:string;
-	categoryId:string;
-    }
+	interface Category {
+		id: string;
+		name: string;
+	}
+	interface Item {
+		id: string;
+		name: string;
+		categoryId: string;
+	}
 
-    const handleOnChangeNewColumnName = (e:React.ChangeEvent<HTMLInputElement>) => {
-	
-	setNewColumnName(e.target.value);
-    }
+	const handleOnChangeNewColumnName = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    const handleOnChangeNewItemName = (e:React.ChangeEvent<HTMLInputElement>) => {	
-	setNewItemName(e.target.value);
-    }
+		setNewColumnName(e.target.value);
+	}
 
-    const handleOnClickNewColumn = () => {
-	if (newColumnName.length>0){
-	   setCategoryList([...categoryList, {id: crypto.randomUUID(), name: newColumnName}]);
-	   setNewColumnName("");
-        }
-    }
+	const handleOnChangeNewItemName = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setNewItemName(e.target.value);
+	}
 
-    const handleOnChangeSelectedCategory = (categoryID:React.ChangeEvent<HTMLInputElement>) => {
-	setSelectedCategory(categoryID.toString());
-    }
+	const handleOnClickNewColumn = () => {
+		if (newColumnName.length > 0) {
+			setCategoryList([...categoryList, { id: crypto.randomUUID(), name: newColumnName }]);
+			setNewColumnName("");
+		}
+	}
 
-    const handleOnClickAddItem = () => {
-	setItemList([...itemList, {
-		id: crypto.randomUUID(),
-		name: newItemName,
-		categoryId: selectedCategory
-	}]);
-	setNewItemName("");
-    }
+	const handleOnChangeSelectedCategory = (categoryID: React.ChangeEvent<HTMLInputElement>) => {
+		setSelectedCategory(categoryID.toString());
+	}
 
-    return <div className="mainDiv">
-	<Row>
-	    <Col span={20}>
-	        <Input onChange={handleOnChangeNewColumnName} value={newColumnName}></Input>
-	    </Col>
-	    <Col span={4} className="alignRight">            
-		<Button 
-		  disabled={!(newColumnName.length>0)}
-		  onClick={handleOnClickNewColumn}
-		>Add Column</Button>
-	    </Col>
-	</Row>
-	<Row>
-	   <Col span={17}>
-		<Input onChange={handleOnChangeNewItemName} value={newItemName}></Input>
-	   </Col>
-	   <Col span={4}>
-		<Select
-		   className="select"
-		   options={categoryList.map((category)=>{
-			return {value: category.id, label: category.name};	
-		   })}
-		   onChange={handleOnChangeSelectedCategory}>
-		    
-		</Select>
-	   </Col>
-	   <Col span={3} className="alignRight">
-		<Button 
-		  disabled={newItemName === "" || selectedCategory === ""}
-		  onClick={handleOnClickAddItem}
-		>Add Item</Button>
-	   </Col>
-	</Row>
+	const handleOnClickAddItem = () => {
+		setItemList([...itemList, {
+			id: crypto.randomUUID(),
+			name: newItemName,
+			categoryId: selectedCategory
+		}]);
+		setNewItemName("");
+	}
 
-	{categoryList.map((category)=>{
-		return <List
-			bordered 
-			key={category.id}
-			header={<div>{category.name}</div>}
-			dataSource={itemList.filter((item)=>{
-		  return item.categoryId === category.id
-		})}
-			renderItem={(item) => (
-			<List.Item className="flexItems">
-			   	  <span>{item.name}</span>
-				  <Button danger type="primary">
-					<CloseOutlined />
-				  </Button>
-			</List.Item>
-			)}
+	const handleOnClickDeleteItem = (deletedID: string) => {
+		setItemList(itemList.filter((item) => item.id !== deletedID))
+	}
+
+	return <div>
+		<Row className="row">
+			<Col span={22} className="col">
+				<Input onChange={handleOnChangeNewColumnName} value={newColumnName} className="input"></Input>
+			</Col>
+			<Col span={2} className="alignRight col ">
+				<Button
+					disabled={!(newColumnName.length > 0)}
+					onClick={handleOnClickNewColumn}
+					className="input"
+				>Add Column</Button>
+			</Col>
+		</Row>
+		<Row className="row">
+			<Col span={16} className="col">
+				<Input onChange={handleOnChangeNewItemName} value={newItemName} className="input"></Input>
+			</Col>
+			<Col span={6} className="col">
+				<Select
+					className="input"
+					options={categoryList.map((category) => {
+						return { value: category.id, label: category.name };
+					})}
+					onChange={handleOnChangeSelectedCategory}>
+				</Select>
+			</Col>
+			<Col span={2} className="alignRight col">
+				<Button
+					disabled={newItemName === "" || selectedCategory === ""}
+					onClick={handleOnClickAddItem}
+				>Add Item</Button>
+			</Col>
+		</Row>
+
+		{categoryList.map((category) => {
+			return <List
+				bordered
+				key={category.id}
+				header={<div>{category.name}</div>}
+				dataSource={
+					itemList.filter((item) => {
+						return item.categoryId === category.id
+					})}
+				className="list"
+				renderItem={(item) => (
+					<List.Item className="listItem">
+						<span>{item.name}</span>
+						<Button
+							danger
+							type="primary"
+							onClick={() => handleOnClickDeleteItem(item.id)}
+						>
+							<CloseOutlined />
+						</Button>
+					</List.Item>
+				)}
 			>
-		</List>
-	})}
-    </div>;
+			</List>
+		})}
+	</div>;
 };
 
 export default TodoListWithDesign;
