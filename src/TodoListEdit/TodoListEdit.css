@@ -1,0 +1,30 @@
+.alignRight{
+	text-align:right;
+}
+
+.flexItems{
+ 	display:flex;
+}
+
+.input{
+	width: 100%;
+}
+.col{
+	padding:20px;
+}
+
+.list{
+	margin:20px;
+	background-color: darkcyan;
+	border: solid black 2px;
+}
+
+.listItem,
+.ant-list-empty-text{
+	border-top:white solid 2px;
+}
+.listItem span,
+.list,
+.ant-empty-description{
+	color:white;
+}
