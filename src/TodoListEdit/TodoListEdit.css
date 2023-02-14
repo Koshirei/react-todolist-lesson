@@ -28,3 +28,14 @@
 .ant-empty-description{
 	color:white;
 }
+.main{
+	display: flex;
+	width:100%;
+}
+.buttons{
+	width: 100%;
+	text-align: right;
+}
+.title{
+	flex: 0 0 80%;
+}

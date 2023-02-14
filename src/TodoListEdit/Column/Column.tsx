@@ -1,21 +1,20 @@
 import React from 'react';
 
-
-import { CloseOutlined } from '@ant-design/icons';
-import {List, Button} from 'antd';
+import { List } from 'antd';
 
 import Header from './Header';
 import Item from './Item';
 
-import {CategoryInterface, ItemInterface} from "../TodoListEdit";
+import { CategoryInterface, ItemInterface } from "../TodoListEdit";
 
 
 interface ColumnInterface {
 	categoryList: CategoryInterface[],
 	itemList: ItemInterface[],
-	handleOnClickDeleteItem : (deletedID: string) => void,
-	handleOnClickDeletedCategory : (deletedID : string) => void,
-	handleShowColumnModal : (category: CategoryInterface) => void 
+	handleOnClickDeleteItem: (deletedID: string) => void,
+	handleOnClickDeletedCategory: (deletedID: string) => void,
+	handleShowColumnModal: (category: CategoryInterface) => void
+	handleShowItemModal : (item: ItemInterface) => void
 }
 
 const Column = ({
@@ -23,18 +22,19 @@ const Column = ({
 	itemList,
 	handleOnClickDeleteItem,
 	handleOnClickDeletedCategory,
-	handleShowColumnModal
-}: ColumnInterface ) => {
+	handleShowColumnModal,
+	handleShowItemModal
+}: ColumnInterface) => {
 
-return <>
+	return <>
 
-	{categoryList.map((category) => {
+		{categoryList.map((category) => {
 			return <List
 				bordered
 				key={category.id}
 				header={
-					<Header 
-						category={category} 
+					<Header
+						category={category}
 						handleOnClickDeletedCategory={handleOnClickDeletedCategory}
 						handleShowColumnModal={handleShowColumnModal}
 					/>
@@ -48,13 +48,14 @@ return <>
 					<Item
 						item={item}
 						handleOnClickDeleteItem={handleOnClickDeleteItem}
+						handleShowItemModal={handleShowItemModal}
 					/>
 				)}
 			>
 			</List>
 		})}
-		
-</>
+
+	</>
 }
 
 export default Column;
