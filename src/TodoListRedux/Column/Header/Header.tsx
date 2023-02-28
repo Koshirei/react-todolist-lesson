@@ -5,7 +5,7 @@ import { CategoryInterface, DeleteCategoryById, ShowColumnModal } from "../../To
 import { Button } from 'antd';
 import { CloseOutlined, SettingOutlined } from '@ant-design/icons';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 interface HeaderInterface {
 	category: CategoryInterface,
@@ -20,7 +20,7 @@ const Header = ({
 	const handleOnClickDeletedCategory = () => {
 		dispatch(DeleteCategoryById(category.id));
 	}
-	
+
 	const handleShowColumnModal = () => {
 		dispatch(ShowColumnModal(category));
 	}

@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 import { Modal, Input } from 'antd';
 
-import { CategoryInterface, HideColumnModal, UpdateNewColumnName } from '../TodoListReduxSlice';
-import { useSelector, useDispatch} from 'react-redux';
+import { HideColumnModal, UpdateNewColumnName } from '../TodoListReduxSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ColumnModal = () => {
 
 	const column = useSelector((state: any) => state.TodoList.editingColumn);
-	
+
 	const [editedColumnName, setEditedColumnName] = useState<string>(column.name);
 	const [error, setError] = useState<boolean>(false);
 
 	const columnModalVisible = useSelector((state: any) => state.TodoList.columnModalVisible);
-	
+
 	const dispatch = useDispatch();
-	
+
 	useEffect(() => {
 		setEditedColumnName(column.name);
 		setError(false);
@@ -33,7 +33,7 @@ const ColumnModal = () => {
 			dispatch(HideColumnModal());
 		}
 	}
-	
+
 	const handleModalOnCancel = () => {
 		dispatch(HideColumnModal());
 	}

@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import { Col, Row, Input, Button } from 'antd';
-import {CategoryInterface, AddNewCategoryToList} from '../TodoListReduxSlice';
+import { CategoryInterface, AddNewCategoryToList } from '../TodoListReduxSlice';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const AddColumn = () => {
-	
+
 	const [newColumnName, setNewColumnName] = useState<string>("");
-	
-	const dispatch = useDispatch(); 
-	
+
+	const dispatch = useDispatch();
+
 	const handleOnChangeNewColumnName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setNewColumnName(e.target.value);
 	}
-	
+
 	const handleOnClickNewColumn = () => {
-		const category:CategoryInterface = {id: crypto.randomUUID(), name: newColumnName};
-		
+		const category: CategoryInterface = { id: crypto.randomUUID(), name: newColumnName };
+
 		dispatch(AddNewCategoryToList(category));
-		
+
 		setNewColumnName('');
 	}
 

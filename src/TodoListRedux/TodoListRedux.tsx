@@ -1,9 +1,10 @@
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './TodoListReduxStore';
 import AddColumn from './AddColumn';
 import AddItem from './AddItem';
 import Column from './Column';
 import ColumnModal from './ColumnModal';
+import ItemModal from './ItemModal';
 
 const TodoListRedux = () => {
     return <Provider store={store}>
@@ -11,6 +12,7 @@ const TodoListRedux = () => {
 			<AddItem />
 			<Column />
 			<ColumnModal />
+			<ItemModal />
 	 </Provider>
 };
 
